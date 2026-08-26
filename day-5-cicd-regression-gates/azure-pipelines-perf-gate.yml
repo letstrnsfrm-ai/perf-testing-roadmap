@@ -1,0 +1,47 @@
+# Azure DevOps Performance Regression Quality Gate Pipeline
+trigger:
+  branches:
+    include:
+      - main
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js runtime'
+
+  - script: |
+      cd mock-server
+      node server.js &
+      sleep 2
+      curl -I http://localhost:3000/api/health
+    displayName: 'Start Target Microservice'
+
+  - script: |
+      cd day-1-load-simulation
+      node run-simulation.js
+    displayName: 'Execute Automated Load Simulation'
+
+  - script: |
+      cd day-5-cicd-regression-gates
+      node perf-gate.js \
+        --current ../day-1-load-simulation/reports/load_metrics.json \
+        --baseline baseline-metrics.json \
+        --max-p95-ms 500 \
+        --max-latency-drift-pct 30 \
+        --max-error-rate 0.01
+    displayName: 'Evaluate Performance Regression Gate'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'day-1-load-simulation/reports'
+      ArtifactName: 'performance-test-results'
+    condition: always()
+    displayName: 'Publish Performance Reports'

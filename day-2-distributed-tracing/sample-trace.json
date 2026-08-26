@@ -1,0 +1,66 @@
+[
+  {
+    "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+    "spanId": "00f067aa0ba902b7",
+    "parentSpanId": null,
+    "name": "GET /api/orders/checkout",
+    "kind": "SERVER",
+    "startTimeUnixNano": 1724670000000000000,
+    "endTimeUnixNano": 1724670000850000000,
+    "durationMs": 850,
+    "attributes": {
+      "http.method": "GET",
+      "http.route": "/api/orders/checkout",
+      "http.status_code": 200,
+      "service.name": "api-gateway"
+    }
+  },
+  {
+    "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+    "spanId": "5fb397be34d23b0f",
+    "parentSpanId": "00f067aa0ba902b7",
+    "name": "AuthService.validateToken",
+    "kind": "INTERNAL",
+    "startTimeUnixNano": 1724670000010000000,
+    "endTimeUnixNano": 1724670000045000000,
+    "durationMs": 35,
+    "attributes": {
+      "service.name": "auth-service",
+      "user.role": "reader"
+    }
+  },
+  {
+    "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+    "spanId": "37717da63f010f75",
+    "parentSpanId": "00f067aa0ba902b7",
+    "name": "Database.acquireExclusiveLock (table: orders)",
+    "kind": "CLIENT",
+    "startTimeUnixNano": 1724670000050000000,
+    "endTimeUnixNano": 1724670000720000000,
+    "durationMs": 670,
+    "attributes": {
+      "db.system": "postgresql",
+      "db.name": "production_orders",
+      "db.statement": "SELECT * FROM orders WHERE id = $1 FOR UPDATE",
+      "db.lock.waited_ms": 650,
+      "service.name": "order-service",
+      "error": true,
+      "error.message": "Lock contention timeout warning: table level exclusive lock held by worker-04"
+    }
+  },
+  {
+    "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+    "spanId": "8b321fa9021e54bc",
+    "parentSpanId": "00f067aa0ba902b7",
+    "name": "PaymentGateway.chargeCreditCard",
+    "kind": "CLIENT",
+    "startTimeUnixNano": 1724670000730000000,
+    "endTimeUnixNano": 1724670000840000000,
+    "durationMs": 110,
+    "attributes": {
+      "service.name": "payment-service",
+      "http.url": "https://api.stripe.com/v1/charges",
+      "http.status_code": 200
+    }
+  }
+]

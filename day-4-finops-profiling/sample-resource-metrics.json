@@ -1,0 +1,58 @@
+[
+  {
+    "serviceName": "auth-service",
+    "cluster": "prod-aks-uksouth",
+    "monthlyCostUsd": 450,
+    "allocated": { "cpuCores": 4.0, "memoryGb": 16.0 },
+    "usage": {
+      "p50CpuCores": 0.25,
+      "p95CpuCores": 0.55,
+      "p99CpuCores": 0.80,
+      "p50MemoryGb": 1.8,
+      "p95MemoryGb": 2.4,
+      "p99MemoryGb": 2.9
+    }
+  },
+  {
+    "serviceName": "order-processing-worker",
+    "cluster": "prod-aks-uksouth",
+    "monthlyCostUsd": 1200,
+    "allocated": { "cpuCores": 16.0, "memoryGb": 64.0 },
+    "usage": {
+      "p50CpuCores": 2.1,
+      "p95CpuCores": 3.8,
+      "p99CpuCores": 4.9,
+      "p50MemoryGb": 8.5,
+      "p95MemoryGb": 14.2,
+      "p99MemoryGb": 17.0
+    }
+  },
+  {
+    "serviceName": "diagram-rendering-api",
+    "cluster": "prod-aks-uksouth",
+    "monthlyCostUsd": 680,
+    "allocated": { "cpuCores": 8.0, "memoryGb": 32.0 },
+    "usage": {
+      "p50CpuCores": 1.4,
+      "p95CpuCores": 2.2,
+      "p99CpuCores": 2.9,
+      "p50MemoryGb": 4.1,
+      "p95MemoryGb": 6.8,
+      "p99MemoryGb": 7.5
+    }
+  },
+  {
+    "serviceName": "analytics-event-collector",
+    "cluster": "prod-aks-uksouth",
+    "monthlyCostUsd": 890,
+    "allocated": { "cpuCores": 8.0, "memoryGb": 32.0 },
+    "usage": {
+      "p50CpuCores": 5.2,
+      "p95CpuCores": 7.1,
+      "p99CpuCores": 7.8,
+      "p50MemoryGb": 22.0,
+      "p95MemoryGb": 28.5,
+      "p99MemoryGb": 30.1
+    }
+  }
+]

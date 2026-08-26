@@ -1,0 +1,58 @@
+name: Performance Regression Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  performance-gate:
+    name: Load Test & SLA Regression Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Start Mock Target Application
+        run: |
+          cd mock-server
+          node server.js &
+          sleep 2
+          curl -I http://localhost:3000/api/health
+
+      - name: Install k6 Load Engine
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update && sudo apt-get install -y k6
+
+      - name: Execute Automated Load Test
+        run: |
+          cd day-1-load-simulation
+          mkdir -p reports
+          k6 run --out json=reports/load_metrics.json load_test.js || node run-simulation.js
+
+      - name: Evaluate Performance Regression Quality Gate
+        run: |
+          cd day-5-cicd-regression-gates
+          node perf-gate.js \
+            --current ../day-1-load-simulation/reports/load_metrics.json \
+            --baseline baseline-metrics.json \
+            --max-p95-ms 500 \
+            --max-latency-drift-pct 30 \
+            --max-error-rate 0.01
+
+      - name: Upload Benchmark Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-benchmark-reports
+          path: day-1-load-simulation/reports/

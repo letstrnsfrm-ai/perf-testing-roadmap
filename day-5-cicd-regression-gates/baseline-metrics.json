@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-08-20T12:00:00.000Z",
+  "commit": "a1b2c3d",
+  "environment": "staging-benchmark",
+  "metrics": {
+    "http_req_duration": {
+      "avg": 42.5,
+      "p90": 85.0,
+      "p95": 120.0,
+      "p99": 210.0
+    },
+    "http_req_failed": {
+      "rate": 0.002
+    },
+    "memory_heap_mb": {
+      "avg": 34.2,
+      "peak": 48.0
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "perf-roadmap-mock-server",
+  "version": "1.0.0",
+  "description": "Lightweight, zero-dependency mock target server for Performance Testing roadmap labs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["k6", "performance", "load-testing", "opentelemetry", "mock-server"],
+  "author": "letustransform.ai",
+  "license": "MIT"
+}

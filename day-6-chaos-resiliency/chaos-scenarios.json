@@ -1,0 +1,23 @@
+[
+  {
+    "scenarioId": "chaos-001",
+    "name": "Downstream Latency Degradation",
+    "description": "Injects 250ms latency into backend dependencies to test client timeout tolerances.",
+    "injection": { "latencyMs": 250, "errorRate": 0.0 },
+    "expectedBehavior": "Client P95 increases but error rate remains 0.0% without socket drops."
+  },
+  {
+    "scenarioId": "chaos-002",
+    "name": "Intermittent 500 Fault Bursts",
+    "description": "Injects 20% transient 500 errors into API endpoints to verify retry mechanisms and circuit breakers.",
+    "injection": { "latencyMs": 50, "errorRate": 0.20, "faultStatus": 503 },
+    "expectedBehavior": "Client fallback handling activates; circuit breaker trips before complete outage."
+  },
+  {
+    "scenarioId": "chaos-003",
+    "name": "High Concurrency DB Lock Contention",
+    "description": "Exhausts database connection pool to test backpressure and queue timeouts.",
+    "injection": { "latencyMs": 500, "errorRate": 0.10 },
+    "expectedBehavior": "Graceful 429 Too Many Requests / 503 rather than unbounded thread deadlock."
+  }
+]
