@@ -1,0 +1,33 @@
+name: Performance Labs Verification CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-perf-labs:
+    name: Verify 7-Day Performance & FinOps Labs
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install root dependencies
+        run: |
+          cd mock-server && npm install && cd ..
+
+      - name: Execute Master Test Runner
+        run: |
+          npm test
