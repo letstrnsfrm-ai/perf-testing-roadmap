@@ -1,6 +1,6 @@
 # ⚡ Performance Engineering & Load Testing (k6) — 7-Day Sprint
 
-Welcome to the official reference codebase for the **Performance Engineering & Load Testing (k6)** course track on [letustransform.com](https://www.letustransform.com).
+Welcome to the official reference codebase for the **Performance Engineering & Load Testing (k6)** course track on [letustransform.com](https://www.letustransform.com) ([Interactive Roadmaps](https://www.letustransform.com/roadmaps) · [QE Strategy Docs](https://www.letustransform.com/docs)).
 
 This standalone repository contains verified, production-ready load testing scripts (k6, Locust), OpenTelemetry tracing analyzers, Kubernetes auto-scaling policies, Cloud FinOps profilers, automated CI/CD performance regression gates, chaos resilience test suites, and autonomous self-healing tuning loops across all 7 days of the hands-on sprint.
 
@@ -75,3 +75,4 @@ Each daily lab directory is modeled after real-world enterprise performance engi
 ## 🔗 Resources & Playbooks
 - 🌐 Interactive Web Portal: [letustransform.com](https://www.letustransform.com)
 - 📚 Full Roadmaps & Episodes: [letustransform.com/roadmaps](https://www.letustransform.com/roadmaps)
+- 📖 QE Strategy & Architecture Docs: [letustransform.com/docs](https://www.letustransform.com/docs)
